@@ -817,3 +817,201 @@ footer {
         padding: 60px 0;
     }
 }
+
+/* Modern Booking Section Styles */
+.booking-section {
+    background-color: var(--light-color);
+    padding: 100px 0;
+}
+
+.booking-wrapper {
+    display: flex;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.booking-image {
+    flex: 1;
+    min-width: 40%;
+}
+
+.booking-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.booking-form-content {
+    flex: 1;
+    padding: 40px;
+}
+
+.booking-form-content .section-header {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.booking-form-content .section-header h2 {
+    font-size: 2rem;
+}
+
+.booking-form-content .section-header p {
+    font-size: 1rem;
+}
+
+#modern-appointment-form .form-step {
+    display: none;
+}
+
+#modern-appointment-form .form-step.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#modern-appointment-form h3 {
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    color: var(--primary-color);
+}
+
+.service-selection {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.service-option {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.service-option i {
+    font-size: 2rem;
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+    display: block;
+}
+
+.service-option span {
+    font-weight: 500;
+}
+
+.service-option:hover,
+.service-option.selected {
+    border-color: var(--secondary-color);
+    background-color: #fdf8f0;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+#modern-appointment-form .form-group {
+    margin-bottom: 20px;
+}
+
+#modern-appointment-form .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+}
+
+#modern-appointment-form .form-group input[type="text"],
+#modern-appointment-form .form-group input[type="email"],
+#modern-appointment-form .form-group input[type="tel"],
+#modern-appointment-form .form-group input[type="date"],
+#modern-appointment-form .form-group input[type="time"],
+#modern-appointment-form .form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+#modern-appointment-form .form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+#modern-appointment-form .form-group input:focus,
+#modern-appointment-form .form-group textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 2px rgba(197, 157, 95, 0.2);
+}
+
+.form-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.form-navigation .btn {
+    min-width: 120px;
+    text-align: center;
+}
+
+.form-navigation .prev-step {
+    background-color: #6c757d;
+}
+
+.form-navigation .prev-step:hover {
+    background-color: #5a6268;
+}
+
+#booking-confirmation {
+    text-align: center;
+    padding: 40px 20px;
+    border: 2px dashed var(--secondary-color);
+    border-radius: 8px;
+    background-color: #fdf8f0;
+}
+
+#booking-confirmation h3 {
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+
+/* Responsive adjustments for modern booking form */
+@media (max-width: 992px) {
+    .booking-wrapper {
+        flex-direction: column;
+    }
+    .booking-image {
+        min-height: 300px; /* Ensure image has some height */
+        max-height: 40vh;
+    }
+    .booking-form-content {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 576px) {
+    .booking-form-content {
+        padding: 20px;
+    }
+    .service-selection {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .form-navigation {
+        flex-direction: column-reverse;
+        gap: 15px;
+    }
+    .form-navigation .btn {
+        width: 100%;
+    }
+}
