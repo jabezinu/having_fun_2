@@ -38,8 +38,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const serviceOptions = modernForm ? modernForm.querySelectorAll('.service-option') : [];
     const selectedServiceInput = document.getElementById('selected-service');
     const bookingConfirmationDiv = document.getElementById('booking-confirmation');
-    const dateInput = document.getElementById('date'); // Get date input
-    const timeSelect = document.getElementById('time'); // Get time select
+    const timeSlotsContainer = document.getElementById('time-slots-container'); // Get time slots container
+    const selectedTimeSlotInput = document.getElementById('selected-time-slot'); // Hidden input for selected slot
     let currentStep = 1;
 
     function showStep(stepNumber) {
@@ -52,27 +52,46 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (modernForm) {
-        // Set Date Input Restrictions (3 weeks from today)
-        if (dateInput) {
+        // Generate Time Slot Buttons (e.g., for the next 3 days, 9 AM - 5 PM)
+        if (timeSlotsContainer) {
+            timeSlotsContainer.innerHTML = ''; // Clear existing slots
             const today = new Date();
-            const minDate = today.toISOString().split('T')[0];
-            today.setDate(today.getDate() + 21); // Add 3 weeks (21 days)
-            const maxDate = today.toISOString().split('T')[0];
-            dateInput.setAttribute('min', minDate);
-            dateInput.setAttribute('max', maxDate);
-        }
-
-        // Populate Time Slots (1-hour increments, e.g., 9 AM - 5 PM)
-        if (timeSelect) {
-            timeSelect.innerHTML = '<option value="" disabled selected>Select a time</option>'; // Clear existing options first
             const startHour = 9;
             const endHour = 17; // 5 PM
-            for (let hour = startHour; hour <= endHour; hour++) {
-                const timeString = `${hour.toString().padStart(2, '0')}:00`;
-                const option = document.createElement('option');
-                option.value = timeString;
-                option.textContent = `${hour % 12 === 0 ? 12 : hour % 12}:00 ${hour < 12 || hour === 24 ? 'AM' : 'PM'}`;
-                timeSelect.appendChild(option);
+
+            for (let dayOffset = 0; dayOffset < 3; dayOffset++) { // Generate slots for next 3 days
+                const currentDate = new Date(today);
+                currentDate.setDate(today.getDate() + dayOffset);
+                const dateString = currentDate.toISOString().split('T')[0];
+                const dayLabel = currentDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+
+                const dayHeader = document.createElement('h4');
+                dayHeader.textContent = dayLabel;
+                dayHeader.style.gridColumn = '1 / -1'; // Span across all columns
+                timeSlotsContainer.appendChild(dayHeader);
+
+                for (let hour = startHour; hour <= endHour; hour++) {
+                    const timeString = `${hour.toString().padStart(2, '0')}:00`;
+                    const dateTimeString = `${dateString} ${timeString}`;
+                    const displayTime = `${hour % 12 === 0 ? 12 : hour % 12}:00 ${hour < 12 || hour === 24 ? 'AM' : 'PM'}`;
+
+                    const button = document.createElement('button');
+                    button.type = 'button'; // Prevent form submission
+                    button.classList.add('time-slot-btn');
+                    button.textContent = displayTime;
+                    button.setAttribute('data-timeslot', dateTimeString);
+
+                    button.addEventListener('click', function() {
+                        // Remove selected class from all buttons
+                        timeSlotsContainer.querySelectorAll('.time-slot-btn').forEach(btn => btn.classList.remove('selected'));
+                        // Add selected class to the clicked button
+                        this.classList.add('selected');
+                        // Update the hidden input value
+                        selectedTimeSlotInput.value = this.getAttribute('data-timeslot');
+                    });
+
+                    timeSlotsContainer.appendChild(button);
+                }
             }
         }
 
@@ -115,19 +134,12 @@ document.addEventListener('DOMContentLoaded', function() {
             // Add validation for the last step if needed
             const name = document.getElementById('name').value;
             const service = selectedServiceInput.value;
-            const date = document.getElementById('date').value;
-            const time = document.getElementById('time').value;
+            const selectedTimeSlot = selectedTimeSlotInput.value; // Get value from hidden input
 
-            // Basic validation for step 2 (date/time)
-            if (currentStep === 2) {
-                if (!dateInput.value) {
-                    alert('Please select a date.');
-                    return;
-                }
-                if (!timeSelect.value) {
-                    alert('Please select a time.');
-                    return;
-                }
+            // Basic validation for step 2 (time slot selection)
+            if (currentStep === 2 && !selectedTimeSlotInput.value) {
+                alert('Please select a time slot.');
+                return;
             }
 
             // Hide form and show confirmation
@@ -135,12 +147,12 @@ document.addEventListener('DOMContentLoaded', function() {
             bookingConfirmationDiv.style.display = 'block';
             bookingConfirmationDiv.innerHTML = `
                 <h3>Thank You, ${name}!</h3>
-                <p>Your appointment for <strong>${service}</strong> on <strong>${date} at ${time}</strong> is booked.</p>
+                <p>Your appointment for <strong>${service}</strong> on <strong>${selectedTimeSlot}</strong> is booked.</p>
                 <p>We look forward to seeing you!</p>
             `;
 
             // In a real app, you'd send data to the server here.
-            console.log('Form Submitted:', { name, email: document.getElementById('email').value, phone: document.getElementById('phone').value, service, date, time, message: document.getElementById('message').value });
+            console.log('Form Submitted:', { name, email: document.getElementById('email').value, phone: document.getElementById('phone').value, service, timeSlot: selectedTimeSlot, message: document.getElementById('message').value });
         });
     }
 
@@ -151,8 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             const name = document.getElementById('name').value;
             const service = document.getElementById('service').value;
-            const date = document.getElementById('date').value;
-            const time = document.getElementById('time').value;
+            const selectedTimeSlot = selectedTimeSlotInput.value; // Get value from hidden input
             showBookingConfirmation(name, service, date, time); // Use the existing modal function
             oldAppointmentForm.reset();
         });
