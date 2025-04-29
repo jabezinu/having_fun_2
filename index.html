@@ -250,10 +250,9 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <input type="date" id="date" name="date" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="time" id="time" name="time" required>
+                            <label>Select Time Slot:</label>
+                            <div id="time-slots-container" class="time-slots-grid"></div>
+                            <input type="hidden" id="selected-time-slot" name="selected_time_slot" required>
                         </div>
                         <div class="form-group">
                             <textarea id="message" name="message" placeholder="Special Requests (Optional)"></textarea>
