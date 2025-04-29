@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book an Appointment - Sharp Cuts Barbershop</title>
+    <title>Book Your Appointment - Sharp Cuts Barbershop</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Header Section -->
+    <!-- Header Section (Consistent with index.html) -->
     <header>
         <div class="container">
             <div class="logo">
@@ -34,83 +34,101 @@
         </div>
     </header>
 
-    <!-- Booking Section -->
-    <section class="booking-page">
+    <!-- Modern Booking Section -->
+    <section class="booking-section">
         <div class="container">
-            <div class="section-header">
-                <h2>Book Your Appointment</h2>
-                <p>Schedule your next premium grooming experience</p>
-            </div>
-            
-            <div class="booking-container">
-                <div class="booking-info">
-                    <h3>Why Book With Us?</h3>
-                    <ul class="booking-benefits">
-                        <li><i class="fas fa-check-circle"></i> Professional barbers with years of experience</li>
-                        <li><i class="fas fa-check-circle"></i> Premium products and tools</li>
-                        <li><i class="fas fa-check-circle"></i> Comfortable and relaxing environment</li>
-                        <li><i class="fas fa-check-circle"></i> Complimentary beverages</li>
-                        <li><i class="fas fa-check-circle"></i> Free Wi-Fi</li>
-                    </ul>
-                    
-                    <div class="booking-hours">
-                        <h3>Opening Hours</h3>
-                        <ul>
-                            <li><span>Monday - Friday:</span> 9:00 AM - 8:00 PM</li>
-                            <li><span>Saturday:</span> 10:00 AM - 6:00 PM</li>
-                            <li><span>Sunday:</span> 11:00 AM - 5:00 PM</li>
-                        </ul>
-                    </div>
+            <div class="booking-wrapper">
+                <div class="booking-image">
+                    <!-- Add a relevant, high-quality image -->
+                    <img src="https://images.unsplash.com/photo-1599387738205-18ebe1d547ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Barber working">
                 </div>
-                
-                <div class="booking-form-container">
-                    <form id="appointment-form">
-                        <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                <div class="booking-form-content">
+                    <div class="section-header text-left">
+                        <h2>Schedule Your Visit</h2>
+                        <p>Find a time that works best for you.</p>
+                    </div>
+                    <form id="modern-appointment-form">
+                        <div class="form-step active" data-step="1">
+                            <h3>Step 1: Choose Your Service</h3>
+                            <div class="service-selection">
+                                <div class="service-option" data-service="Haircut">
+                                    <i class="fas fa-cut"></i>
+                                    <span>Haircut</span>
+                                </div>
+                                <div class="service-option" data-service="Beard Trim">
+                                    <i class="fas fa-razor"></i>
+                                    <span>Beard Trim</span>
+                                </div>
+                                <div class="service-option" data-service="Hot Towel Shave">
+                                    <i class="fas fa-hot-tub"></i>
+                                    <span>Hot Towel Shave</span>
+                                </div>
+                                <div class="service-option" data-service="Kids Haircut">
+                                    <i class="fas fa-child"></i>
+                                    <span>Kids Haircut</span>
+                                </div>
+                                <div class="service-option" data-service="Hair & Beard Combo">
+                                    <i class="fas fa-user-tie"></i>
+                                    <span>Hair & Beard</span>
+                                </div>
+                            </div>
+                            <input type="hidden" id="selected-service" name="service" required>
+                            <button type="button" class="btn next-step">Next <i class="fas fa-arrow-right"></i></button>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" placeholder="Enter your email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="service">Select Service</label>
-                            <select id="service" name="service" required>
-                                <option value="" disabled selected>Choose a service</option>
-                                <option value="Haircut">Haircut</option>
-                                <option value="Beard Trim">Beard Trim</option>
-                                <option value="Hot Towel Shave">Hot Towel Shave</option>
-                                <option value="Hair & Beard">Hair & Beard Combo</option>
-                                <option value="Kids Haircut">Kids Haircut</option>
-                                <option value="Hair Coloring">Hair Coloring</option>
-                            </select>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group half">
-                                <label for="date">Preferred Date</label>
+
+                        <div class="form-step" data-step="2">
+                            <h3>Step 2: Select Date & Time</h3>
+                            <div class="form-group">
+                                <label for="date">Date</label>
                                 <input type="date" id="date" name="date" required>
                             </div>
-                            <div class="form-group half">
-                                <label for="time">Preferred Time</label>
-                                <input type="time" id="time" name="time" required>
+                            <div class="form-group">
+                                <label for="time">Time</label>
+                                <select id="time" name="time" required>
+                                    <option value="" disabled selected>Select a time</option>
+                                    <!-- Time slots will be populated by JavaScript -->
+                                </select>
+                            </div>
+                            <div class="form-navigation">
+                                <button type="button" class="btn prev-step"><i class="fas fa-arrow-left"></i> Back</button>
+                                <button type="button" class="btn next-step">Next <i class="fas fa-arrow-right"></i></button>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="message">Special Requests (Optional)</label>
-                            <textarea id="message" name="message" placeholder="Any special requests or notes for your barber"></textarea>
+
+                        <div class="form-step" data-step="3">
+                            <h3>Step 3: Your Details</h3>
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" name="name" placeholder="Your Full Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="Your Email Address" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Notes (Optional)</label>
+                                <textarea id="message" name="message" placeholder="Any special requests?"></textarea>
+                            </div>
+                            <div class="form-navigation">
+                                <button type="button" class="btn prev-step"><i class="fas fa-arrow-left"></i> Back</button>
+                                <button type="submit" class="btn">Confirm Booking</button>
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-book">Book Appointment</button>
                     </form>
+                    <div id="booking-confirmation" style="display: none;">
+                        <h3>Thank You!</h3>
+                        <p>Your appointment is booked. We look forward to seeing you!</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer Section -->
+    <!-- Footer Section (Consistent with index.html) -->
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -118,31 +136,11 @@
                     <h2>Sharp Cuts</h2>
                     <p>PREMIUM BARBERSHOP</p>
                 </div>
-                <div class="footer-links">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="index.html#services">Services</a></li>
-                        <li><a href="index.html#gallery">Gallery</a></li>
-                        <li><a href="index.html#about">About</a></li>
-                        <li><a href="index.html#contact">Contact</a></li>
-                        <li><a href="booking.html">Book Now</a></li>
-                    </ul>
-                </div>
-                <div class="footer-contact">
-                    <h3>Contact Us</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> 123 Barber Street, City, Country</p>
-                    <p><i class="fas fa-phone"></i> (123) 456-7890</p>
-                    <p><i class="fas fa-envelope"></i> info@sharpcuts.com</p>
-                </div>
                 <div class="footer-social">
-                    <h3>Follow Us</h3>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-yelp"></i></a>
                 </div>
             </div>
             <div class="footer-bottom">
